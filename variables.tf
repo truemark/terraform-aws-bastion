@@ -93,7 +93,7 @@ variable "enable_ssm" {
 
 variable "instance_suffix" {
   type = string
-  default = "-strongdm"
+  default = "-bastion"
   description = "The suffix to use on the name when creating the EC2 instance"
 }
 
