@@ -1,6 +1,6 @@
 variable "name" {
   type = string
-  description = "Name of the relay"
+  description = "Name of the instance"
 }
 
 variable "create" {
