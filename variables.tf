@@ -10,7 +10,7 @@ variable "create" {
 }
 
 variable "instance_type" {
-  default     = "t4g.small"
+  default     = "t4g.micro"
   type        = string
   description = "EC2 instance type to use for the gateway"
 }
