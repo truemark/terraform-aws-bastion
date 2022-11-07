@@ -15,22 +15,28 @@ variable "instance_type" {
   description = "EC2 instance type to use for the gateway"
 }
 
-variable "ssh_allowed_cidr_blocks" {
-  default     = []
+variable "ingress_cidrs_blocks" {
+  description = "List of allowed CIDRs that can access this RDS instance."
   type        = list(string)
-  description = "Default allowed CIDRs to access SSH on this EC2 instance"
-}
-
-variable "egress_cidr_blocks" {
   default     = ["0.0.0.0/0"]
-  type        = list(string)
-  description = "Default allowed CIDRs for egress"
 }
 
-variable "egress_cidr_blocks_ipv6" {
-  default     = ["::/0"]
+variable "ipv6_ingress_cidrs_blocks" {
+  description = "List of allowed CIDRs that can access this RDS instance."
   type        = list(string)
+  default     = ["::/0"]
+}
+
+variable "egress_cidrs_blocks" {
   description = "Default allowed CIDRs for egress"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
+variable "ipv6_egress_cidrs_blocks" {
+  description = "Default allowed CIDRs for egress"
+  type        = list(string)
+  default     = ["::/0"]
 }
 
 variable "vpc_id" {
@@ -99,7 +105,7 @@ variable "instance_suffix" {
 
 variable "ami_name_filters" {
   type        = list(string)
-  default     = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-arm64-server-*"]
+  default     = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-arm64-server-*"]
   description = "Name filter to use when searching for AMIs"
 }
 
@@ -113,4 +119,10 @@ variable "force_deploy" {
   type        = bool
   default     = false
   description = "Forcibly re-deploy the EC2 instance."
+}
+
+variable "postgres_version" {
+  type = string
+  default = "15"
+  description = "Version of the PostgreSQL client to install."
 }

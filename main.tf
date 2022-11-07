@@ -1,3 +1,7 @@
+locals {
+  name = "${var.name}${var.instance_suffix}"
+}
+
 data "aws_ami" "this" {
   most_recent = true
   filter {
@@ -49,18 +53,17 @@ resource "aws_security_group" "this" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = var.ssh_allowed_cidr_blocks
+    cidr_blocks = var.ingress_cidrs_blocks
+    ipv6_cidr_blocks = var.ipv6_ingress_cidrs_blocks
   }
   egress {
     from_port        = 0
     to_port          = 0
     protocol         = -1
-    cidr_blocks      = var.egress_cidr_blocks
-    ipv6_cidr_blocks = var.egress_cidr_blocks_ipv6
+    cidr_blocks      = var.egress_cidrs_blocks
+    ipv6_cidr_blocks = var.ipv6_egress_cidrs_blocks
   }
-  tags = merge(var.security_group_tags, merge(var.tags, {
-    Name = var.name
-  }))
+  tags = merge(var.security_group_tags, merge(var.tags, {}))
 }
 
 resource "aws_instance" "this" {
@@ -82,8 +85,9 @@ resource "aws_instance" "this" {
   user_data = templatefile("${path.module}/init.sh.tpl", {
     identifier = var.force_deploy ? timestamp() : 0
     ssh_keys   = var.ssh_keys
+    postgres_version = var.postgres_version
   })
   tags = merge(var.instance_tags, merge(var.tags, {
-    Name = "${var.name}${var.instance_suffix}"
+    Name = local.name
   }))
 }
