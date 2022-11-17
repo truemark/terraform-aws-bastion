@@ -52,7 +52,7 @@ variable "subnet_id" {
 variable "ami" {
   default     = null
   type        = string
-  description = "Optional AMI to use. Default is to use the latest Ubuntu 20.04 amd64 image"
+  description = "Optional AMI to use. Default is to use the latest Ubuntu 22.04 arm64 image"
 }
 
 variable "key_name" {
