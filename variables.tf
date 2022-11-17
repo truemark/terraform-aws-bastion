@@ -16,13 +16,13 @@ variable "instance_type" {
 }
 
 variable "ingress_cidrs_blocks" {
-  description = "List of allowed CIDRs that can access this RDS instance."
+  description = "List of allowed CIDRs that can access this instance."
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }
 
 variable "ipv6_ingress_cidrs_blocks" {
-  description = "List of allowed CIDRs that can access this RDS instance."
+  description = "List of allowed CIDRs that can access this instance."
   type        = list(string)
   default     = ["::/0"]
 }
