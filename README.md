@@ -7,7 +7,6 @@ Example Usage
 module "bastion" {
   source  = "truemark/bastion/aws"
   name = "mybastion"
-  ssh_allowed_cidr_blocks = local.ssh_allowed
   vpc_id = "<VPC ID>"
   subnet_id = "<SUBNET ID>"
   ssh_keys = [
