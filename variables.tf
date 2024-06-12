@@ -122,7 +122,7 @@ variable "force_deploy" {
 }
 
 variable "postgres_version" {
-  type = string
-  default = "15"
+  type        = string
+  default     = "15"
   description = "Version of the PostgreSQL client to install."
 }

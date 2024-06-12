@@ -50,10 +50,10 @@ resource "aws_security_group" "this" {
   name   = "${var.name}${var.instance_suffix}"
   vpc_id = var.vpc_id
   ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = var.ingress_cidrs_blocks
+    from_port        = 22
+    to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = var.ingress_cidrs_blocks
     ipv6_cidr_blocks = var.ipv6_ingress_cidrs_blocks
   }
   egress {
@@ -83,8 +83,8 @@ resource "aws_instance" "this" {
   }
   user_data_replace_on_change = true
   user_data = templatefile("${path.module}/init.sh.tpl", {
-    identifier = var.force_deploy ? timestamp() : 0
-    ssh_keys   = var.ssh_keys
+    identifier       = var.force_deploy ? timestamp() : 0
+    ssh_keys         = var.ssh_keys
     postgres_version = var.postgres_version
   })
   tags = merge(var.instance_tags, merge(var.tags, {
